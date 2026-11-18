@@ -269,6 +269,25 @@ Retorno:
 [*] Killing all sessions...
 ```
 
+<a name="root-cause"></a>
+## Causa raiz e mitigação
+
+Causa raiz: o Samba (3.0.20 a 3.0.25rc3), quando configurado com
+`username map script`, passa o username recebido na autenticação direto para
+`/bin/sh`, sem sanitização. O `smbd` monta a linha `<script> <username>` e
+executa via shell antes mesmo de autenticar. Um username com metacaracteres
+de shell (ex.: `` /=`comando` ``) vira execução de comando arbitrário. Como
+o `smbd` roda como root, o comando roda como root, sem precisar de
+credenciais.
+
+Mitigações (qualquer uma já resolve):
+- Atualizar o Samba para versão posterior a 3.0.25rc3 (a 3.0.25 final já
+  corrige o CVE).
+- Remover a diretiva `username map script` do `smb.conf` quando não for
+  estritamente necessária.
+- Segmentar a rede/firewall: restringir acesso às portas 139/445 só a hosts
+  confiáveis.
+
 <a name="cleanup"></a>
 ## Encerrar o laboratório
 
