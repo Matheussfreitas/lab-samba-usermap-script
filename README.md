@@ -18,7 +18,7 @@ switch, no padrão dos exemplos do Capítulo 6.
 ## Topologia
 
 ```python
-#!/usr/bin/python3
+#!/usr/bin/python
 import os
 from containernet.net import Containernet
 from containernet.cli import CLI
