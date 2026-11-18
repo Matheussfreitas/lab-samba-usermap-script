@@ -1,9 +1,12 @@
 <a name="samba-usermap-script"></a>
-# Samba `username map script` (CVE-2007-2447)
+# Samba username map script (CVE-2007-2447)
 
 Disciplina: Segurança da Informação, UFRN/IMD, Prof. Ramon Fontes.
+
 Vulnerabilidade: **Samba `username map script`**, CVE-2007-2447, presente nas versões
-3.0.20 a 3.0.25rc3. A diretiva `username map script` passa o username recebido na
+3.0.20 a 3.0.25rc3. 
+
+A diretiva `username map script` passa o username recebido na
 autenticação direto para `/bin/sh` sem sanitização. Um username com metacaracteres de
 shell executa comando arbitrário. Como o `smbd` roda como root, o comando roda como
 **root**, sem precisar de credenciais.
